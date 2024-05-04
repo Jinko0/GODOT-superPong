@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://x7uiirq5wwyp"]
+
+[ext_resource type="PackedScene" uid="uid://cfkfyl4nh088i" path="res://scenes/ball.tscn" id="1_crmpd"]
+[ext_resource type="PackedScene" uid="uid://y6obu0cmehea" path="res://scenes/player.tscn" id="1_cw8hg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp6gk"]
+size = Vector2(388, 1669)
+
+[node name="World" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(15, 265)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(573, 651)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_cp6gk")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(8, -189)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(824.5, 4.57764e-05)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_cp6gk")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(-194, 382)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_cp6gk")
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(1291, 351)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(184, 0)
+shape = SubResource("RectangleShape2D_cp6gk")
+metadata/_edit_lock_ = true
+
+[node name="ball" parent="." instance=ExtResource("1_crmpd")]
+position = Vector2(566, 241)
+
+[node name="Player" parent="." instance=ExtResource("1_cw8hg")]
+position = Vector2(132, 192)
+collision_mask = 7
