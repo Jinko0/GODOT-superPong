@@ -45,9 +45,8 @@ position = Vector2(184, 0)
 shape = SubResource("RectangleShape2D_cp6gk")
 metadata/_edit_lock_ = true
 
+[node name="Player" parent="." instance=ExtResource("1_cw8hg")]
+position = Vector2(240, 329)
+
 [node name="ball" parent="." instance=ExtResource("1_crmpd")]
 position = Vector2(566, 241)
-
-[node name="Player" parent="." instance=ExtResource("1_cw8hg")]
-position = Vector2(132, 192)
-collision_mask = 7
