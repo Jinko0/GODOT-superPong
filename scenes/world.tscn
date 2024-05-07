@@ -1,52 +1,132 @@
-[gd_scene load_steps=4 format=3 uid="uid://x7uiirq5wwyp"]
+[gd_scene load_steps=9 format=3 uid="uid://x7uiirq5wwyp"]
 
-[ext_resource type="PackedScene" uid="uid://cfkfyl4nh088i" path="res://scenes/ball.tscn" id="1_crmpd"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_3ured"]
+[ext_resource type="PackedScene" uid="uid://de2vaq8fooifb" path="res://scenes/goal.tscn" id="1_ado7c"]
 [ext_resource type="PackedScene" uid="uid://y6obu0cmehea" path="res://scenes/player.tscn" id="1_cw8hg"]
+[ext_resource type="Texture2D" uid="uid://dx48g5tcw8ej6" path="res://assets/background.png" id="2_5you8"]
+[ext_resource type="AudioStream" uid="uid://c64ow7656faf4" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Ho le but - Copie.wav" id="5_e7tyt"]
+[ext_resource type="AudioStream" uid="uid://bqwq8bpj5bdlu" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Decompte - Copie.wav" id="6_dpv3j"]
+[ext_resource type="AudioStream" uid="uid://c1kf1uqr4ratq" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Sifflet - Copie.wav" id="8_56ulb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cp6gk"]
-size = Vector2(388, 1669)
+size = Vector2(305, 1669)
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_3ured")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="BottomWall3" type="StaticBody2D" parent="."]
 z_index = -1
-position = Vector2(15, 265)
+position = Vector2(-333, 360)
+rotation = -1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(573, 651)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall3"]
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_cp6gk")
 metadata/_edit_lock_ = true
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="BottomWall2" type="StaticBody2D" parent="."]
 z_index = -1
-position = Vector2(8, -189)
+position = Vector2(1670, 350)
+rotation = 1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(824.5, 4.57764e-05)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall2"]
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_cp6gk")
 metadata/_edit_lock_ = true
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
-z_index = -1
-position = Vector2(-194, 382)
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1282.0
+offset_bottom = 742.0
+texture = ExtResource("2_5you8")
+expand_mode = 1
+metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="GoalPlayer2" parent="." instance=ExtResource("1_ado7c")]
+position = Vector2(1212, 60)
+goal_id = 2
+metadata/_edit_lock_ = true
+
+[node name="GoalPlayer1" parent="." instance=ExtResource("1_ado7c")]
+position = Vector2(-118, 80)
+metadata/_edit_lock_ = true
+
+[node name="TopWall" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(614, -122)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
+rotation = 1.5708
 shape = SubResource("RectangleShape2D_cp6gk")
 metadata/_edit_lock_ = true
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+[node name="BottomWall" type="StaticBody2D" parent="."]
 z_index = -1
-position = Vector2(1291, 351)
+position = Vector2(653, 794)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2(184, 0)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
+rotation = 1.5708
 shape = SubResource("RectangleShape2D_cp6gk")
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("1_cw8hg")]
-position = Vector2(240, 329)
+[node name="Player1" parent="." instance=ExtResource("1_cw8hg")]
+position = Vector2(436, 174)
 
-[node name="ball" parent="." instance=ExtResource("1_crmpd")]
-position = Vector2(566, 241)
+[node name="Player2" parent="." instance=ExtResource("1_cw8hg")]
+position = Vector2(141, 145)
+player_id = 2
+
+[node name="Player1Position" type="Marker2D" parent="."]
+position = Vector2(320, 360)
+
+[node name="Player2Position" type="Marker2D" parent="."]
+position = Vector2(960, 360)
+
+[node name="BallPosition" type="Marker2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="ScoreGoalTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="MatchTimer" type="Timer" parent="."]
+wait_time = 300.0
+autostart = true
+
+[node name="Player1Score" type="Label" parent="."]
+offset_left = 515.0
+offset_top = 310.0
+offset_right = 565.0
+offset_bottom = 410.0
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = 547.0
+offset_top = 14.0
+offset_right = 707.0
+offset_bottom = 68.0
+
+[node name="Player2Score" type="Label" parent="."]
+offset_left = 715.0
+offset_top = 310.0
+offset_right = 765.0
+offset_bottom = 410.0
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GoalSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_e7tyt")
+
+[node name="MatchTimerSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_dpv3j")
+
+[node name="WhistleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_56ulb")
+
+[connection signal="timeout" from="ScoreGoalTimer" to="." method="_on_score_goal_timer_timeout"]
+[connection signal="timeout" from="MatchTimer" to="." method="_on_match_timer_timeout"]

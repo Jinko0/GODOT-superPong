@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfkfyl4nh088i"]
+[gd_scene load_steps=6 format=3 uid="uid://cfkfyl4nh088i"]
 
-[ext_resource type="Texture2D" uid="uid://6rmma5q60s31" path="res://icon.svg" id="1_3e80q"]
 [ext_resource type="Script" path="res://scripts/Ball.gd" id="1_lvuu3"]
+[ext_resource type="Texture2D" uid="uid://dbu1xen1fmy2o" path="res://assets/Ball sprite .png" id="2_i8n40"]
+[ext_resource type="AudioStream" uid="uid://di8rxaicavklr" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Rebond - Copie.wav" id="3_q31pn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bgtgn"]
 bounce = 5.0
@@ -10,18 +11,35 @@ bounce = 5.0
 radius = 13.0
 
 [node name="ball" type="RigidBody2D"]
+position = Vector2(1, 0)
 collision_layer = 4
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_bgtgn")
+linear_damp_mode = 1
+linear_damp = 3.0
 angular_damp_mode = 1
 angular_damp = 2.0
 script = ExtResource("1_lvuu3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("1_3e80q")
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_i8n40")
+hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oxq8w")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = -50
+limit_top = -50
+limit_right = 1330
+limit_bottom = 770
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+editor_draw_limits = true
+
+[node name="BounceSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_q31pn")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

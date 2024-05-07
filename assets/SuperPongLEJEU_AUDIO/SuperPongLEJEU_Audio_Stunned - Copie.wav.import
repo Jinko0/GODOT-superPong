@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bg5kxqh6q7rol"
+path="res://.godot/imported/SuperPongLEJEU_Audio_Stunned - Copie.wav-8e2ca3d84217dbb973d4d9c1b978f950.sample"
+
+[deps]
+
+source_file="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Stunned - Copie.wav"
+dest_files=["res://.godot/imported/SuperPongLEJEU_Audio_Stunned - Copie.wav-8e2ca3d84217dbb973d4d9c1b978f950.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
