@@ -1,0 +1,149 @@
+[gd_scene load_steps=20 format=3 uid="uid://y6obu0cmehea"]
+
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_8xhy2"]
+[ext_resource type="Texture2D" uid="uid://cau7se70ofmro" path="res://assets/character.png" id="2_1lcb3"]
+[ext_resource type="Texture2D" uid="uid://chkettojqxy02" path="res://assets/shoot.png" id="3_3n8xy"]
+[ext_resource type="Script" path="res://scripts/Hand.gd" id="3_ljb2v"]
+[ext_resource type="AudioStream" uid="uid://bg5kxqh6q7rol" path="res://assets/SuperPongLEJEU_AUDIO/stun.wav" id="4_eynnn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj60n"]
+atlas = ExtResource("2_1lcb3")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hov84"]
+atlas = ExtResource("2_1lcb3")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdsqn"]
+atlas = ExtResource("2_1lcb3")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5icoe"]
+atlas = ExtResource("2_1lcb3")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lybe"]
+atlas = ExtResource("3_3n8xy")
+region = Rect2(0, 0, 513, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_df5hk"]
+atlas = ExtResource("3_3n8xy")
+region = Rect2(513, 0, 513, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl2nj"]
+atlas = ExtResource("3_3n8xy")
+region = Rect2(1026, 0, 513, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov2so"]
+atlas = ExtResource("3_3n8xy")
+region = Rect2(1539, 0, 513, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwofq"]
+atlas = ExtResource("3_3n8xy")
+region = Rect2(2052, 0, 513, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iohv4"]
+atlas = ExtResource("3_3n8xy")
+region = Rect2(2565, 0, 513, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkttl"]
+atlas = ExtResource("3_3n8xy")
+region = Rect2(3078, 0, 513, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ep2cg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj60n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hov84")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cdsqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5icoe")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8lybe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_df5hk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl2nj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov2so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwofq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iohv4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkttl")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 35.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sabjr"]
+radius = 36.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_li2an"]
+radius = 160.012
+
+[node name="Player" type="CharacterBody2D" groups=["Players"]]
+collision_layer = 2
+collision_mask = 7
+motion_mode = 1
+script = ExtResource("1_8xhy2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ep2cg")
+animation = &"shoot"
+autoplay = "run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+shape = SubResource("CircleShape2D_sabjr")
+
+[node name="Hand" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("3_ljb2v")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand"]
+shape = SubResource("CircleShape2D_li2an")
+metadata/_edit_lock_ = true
+
+[node name="Body_block_cooldown" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Stun_cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="StunSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_eynnn")
+volume_db = 15.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Hand" to="Hand" method="_on_body_entered"]
+[connection signal="timeout" from="Stun_cooldown" to="." method="_on_stun_cooldown_timeout"]

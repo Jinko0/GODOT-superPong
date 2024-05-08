@@ -1,89 +1,167 @@
-[gd_scene load_steps=9 format=3 uid="uid://x7uiirq5wwyp"]
+[gd_scene load_steps=27 format=3 uid="uid://x7uiirq5wwyp"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_3ured"]
 [ext_resource type="PackedScene" uid="uid://de2vaq8fooifb" path="res://scenes/goal.tscn" id="1_ado7c"]
 [ext_resource type="PackedScene" uid="uid://y6obu0cmehea" path="res://scenes/player.tscn" id="1_cw8hg"]
-[ext_resource type="Texture2D" uid="uid://dx48g5tcw8ej6" path="res://assets/background.png" id="2_5you8"]
-[ext_resource type="AudioStream" uid="uid://c64ow7656faf4" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Ho le but - Copie.wav" id="5_e7tyt"]
-[ext_resource type="AudioStream" uid="uid://bqwq8bpj5bdlu" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Decompte - Copie.wav" id="6_dpv3j"]
-[ext_resource type="AudioStream" uid="uid://c1kf1uqr4ratq" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Sifflet - Copie.wav" id="8_56ulb"]
+[ext_resource type="Texture2D" uid="uid://bub1wkhu8a0v1" path="res://assets/rightGoal.png" id="2_mhlw4"]
+[ext_resource type="Texture2D" uid="uid://dds54lmhal84n" path="res://assets/floor.png" id="2_xi8eh"]
+[ext_resource type="Texture2D" uid="uid://d0hin73nxsmnf" path="res://assets/top-wall.png" id="3_hwxjn"]
+[ext_resource type="Texture2D" uid="uid://62vk8ipqi47p" path="res://assets/LeftGoal.png" id="3_rwcht"]
+[ext_resource type="FontFile" uid="uid://b5fdt8c8p5lwe" path="res://assets/GravityRegular5.ttf" id="5_ann5j"]
+[ext_resource type="Texture2D" uid="uid://c7us276khe2wf" path="res://assets/bottom-wall.png" id="5_dlw66"]
+[ext_resource type="AudioStream" uid="uid://c64ow7656faf4" path="res://assets/SuperPongLEJEU_AUDIO/goal.wav" id="5_e7tyt"]
+[ext_resource type="AudioStream" uid="uid://bqwq8bpj5bdlu" path="res://assets/SuperPongLEJEU_AUDIO/timeout.wav" id="6_dpv3j"]
+[ext_resource type="AudioStream" uid="uid://c1kf1uqr4ratq" path="res://assets/SuperPongLEJEU_AUDIO/whistle.wav" id="8_56ulb"]
+[ext_resource type="FontFile" uid="uid://bgywyjtys34bc" path="res://assets/EraserDust-p70d.ttf" id="8_nm80v"]
+[ext_resource type="AudioStream" uid="uid://dvx6wwfjahjw7" path="res://assets/SuperPongLEJEU_AUDIO/goal2.wav" id="12_4kebu"]
+[ext_resource type="AudioStream" uid="uid://dt57ehfe2gbpq" path="res://assets/SuperPongLEJEU_AUDIO/Musique.wav" id="13_k6sn8"]
+[ext_resource type="AudioStream" uid="uid://cnckagghuco4c" path="res://assets/SuperPongLEJEU_AUDIO/goal3.wav" id="13_pjv1d"]
+[ext_resource type="AudioStream" uid="uid://ctlk55atxa768" path="res://assets/SuperPongLEJEU_AUDIO/goal4.wav" id="14_txadk"]
+[ext_resource type="AudioStream" uid="uid://dur70gkj5ntvn" path="res://assets/SuperPongLEJEU_AUDIO/whistle2.wav" id="15_sbkfl"]
+[ext_resource type="FontFile" uid="uid://dn2fvhbcqe7dx" path="res://assets/GravityBold8.ttf" id="19_8tfi4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp6gk"]
-size = Vector2(305, 1669)
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ch3oc"]
+streams_count = 4
+stream_0/stream = ExtResource("5_e7tyt")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("12_4kebu")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("13_pjv1d")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("14_txadk")
+stream_3/weight = 1.0
+
+[sub_resource type="Gradient" id="Gradient_iequ3"]
+offsets = PackedFloat32Array(0, 0.577381)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iquhk"]
+gradient = SubResource("Gradient_iequ3")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_7u0k2"]
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dup5q"]
+gradient = SubResource("Gradient_7u0k2")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_aovr5"]
+offsets = PackedFloat32Array(0, 0.541667)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7ig38"]
+gradient = SubResource("Gradient_aovr5")
+fill = 1
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
 
 [node name="World" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_3ured")
 
-[node name="BottomWall3" type="StaticBody2D" parent="."]
+[node name="TopWallTexture" type="TextureRect" parent="."]
 z_index = -1
-position = Vector2(-333, 360)
-rotation = -1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall3"]
-rotation = 1.5708
-shape = SubResource("RectangleShape2D_cp6gk")
+offset_left = -344.0
+offset_top = -88.0
+offset_right = 1625.0
+offset_bottom = 1216.0
+texture = ExtResource("3_hwxjn")
+expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="BottomWall2" type="StaticBody2D" parent="."]
-z_index = -1
-position = Vector2(1670, 350)
-rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall2"]
-rotation = 1.5708
-shape = SubResource("RectangleShape2D_cp6gk")
+[node name="RightGoal" type="TextureRect" parent="."]
+offset_left = 80.0
+offset_top = -184.0
+offset_right = 1544.0
+offset_bottom = 984.0
+texture = ExtResource("2_mhlw4")
+expand_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 1282.0
-offset_bottom = 742.0
-texture = ExtResource("2_5you8")
+[node name="LeftGoal" type="TextureRect" parent="."]
+offset_left = -352.0
+offset_top = -200.0
+offset_right = 1490.0
+offset_bottom = 1000.0
+texture = ExtResource("3_rwcht")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Floor" type="TextureRect" parent="."]
+z_index = -2
+offset_left = -85.0
+offset_top = -88.0
+offset_right = 1373.0
+offset_bottom = 810.0
+texture = ExtResource("2_xi8eh")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="BottomWallTexture" type="TextureRect" parent="."]
+z_index = 1
+offset_left = -296.0
+offset_top = -304.0
+offset_right = 1633.0
+offset_bottom = 884.0
+texture = ExtResource("5_dlw66")
 expand_mode = 1
 metadata/_edit_lock_ = true
 
 [node name="GoalPlayer2" parent="." instance=ExtResource("1_ado7c")]
-position = Vector2(1212, 60)
+position = Vector2(1320, 200)
 goal_id = 2
 metadata/_edit_lock_ = true
 
 [node name="GoalPlayer1" parent="." instance=ExtResource("1_ado7c")]
-position = Vector2(-118, 80)
+position = Vector2(-200, 200)
 metadata/_edit_lock_ = true
 
 [node name="TopWall" type="StaticBody2D" parent="."]
 z_index = -1
-position = Vector2(614, -122)
+position = Vector2(632, 8)
+metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
-rotation = 1.5708
-shape = SubResource("RectangleShape2D_cp6gk")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TopWall"]
+polygon = PackedVector2Array(8, 120, 584, 120, 584, 224, 776, 224, 776, 440, 1032, 440, 1032, -328, -1144, -328, -1144, 440, -760, 440, -760, 224, -568, 224, -568, 120)
 metadata/_edit_lock_ = true
 
 [node name="BottomWall" type="StaticBody2D" parent="."]
 z_index = -1
-position = Vector2(653, 794)
+position = Vector2(653, 861)
+metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
-rotation = 1.5708
-shape = SubResource("RectangleShape2D_cp6gk")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BottomWall"]
+polygon = PackedVector2Array(-13, -29, -13, -157, 563, -157, 563, -261, 755, -261, 755, -413, 1011, -413, 1011, 163, -1165, 163, -1165, -413, -781, -413, -781, -261, -589, -261, -589, -157, -13, -157)
 metadata/_edit_lock_ = true
 
 [node name="Player1" parent="." instance=ExtResource("1_cw8hg")]
 position = Vector2(436, 174)
+metadata/_edit_lock_ = true
 
 [node name="Player2" parent="." instance=ExtResource("1_cw8hg")]
 position = Vector2(141, 145)
 player_id = 2
+metadata/_edit_lock_ = true
 
 [node name="Player1Position" type="Marker2D" parent="."]
-position = Vector2(320, 360)
+position = Vector2(384, 416)
+metadata/_edit_lock_ = true
 
 [node name="Player2Position" type="Marker2D" parent="."]
-position = Vector2(960, 360)
+position = Vector2(896, 416)
+metadata/_edit_lock_ = true
 
 [node name="BallPosition" type="Marker2D" parent="."]
-position = Vector2(640, 360)
+position = Vector2(640, 416)
+metadata/_edit_lock_ = true
+
+[node name="BallPowerPosition" type="Marker2D" parent="."]
+position = Vector2(779.511, 48.7976)
+metadata/_edit_lock_ = true
 
 [node name="ScoreGoalTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -91,42 +169,135 @@ one_shot = true
 
 [node name="MatchTimer" type="Timer" parent="."]
 wait_time = 300.0
-autostart = true
+one_shot = true
+
+[node name="KickoffTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = 552.0
+offset_top = 40.0
+offset_right = 680.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0, 0.87451, 0, 0.94902)
+theme_override_fonts/font = ExtResource("5_ann5j")
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Player1Score" type="Label" parent="."]
-offset_left = 515.0
-offset_top = 310.0
-offset_right = 565.0
-offset_bottom = 410.0
+offset_left = 320.0
+offset_top = 256.0
+offset_right = 578.0
+offset_bottom = 574.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.658824)
+theme_override_fonts/font = ExtResource("8_nm80v")
+theme_override_font_sizes/font_size = 250
 text = "0
 "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="TimerLabel" type="Label" parent="."]
-offset_left = 547.0
-offset_top = 14.0
-offset_right = 707.0
-offset_bottom = 68.0
+metadata/_edit_lock_ = true
 
 [node name="Player2Score" type="Label" parent="."]
-offset_left = 715.0
-offset_top = 310.0
-offset_right = 765.0
-offset_bottom = 410.0
+offset_left = 704.0
+offset_top = 256.0
+offset_right = 960.0
+offset_bottom = 576.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.658824)
+theme_override_fonts/font = ExtResource("8_nm80v")
+theme_override_font_sizes/font_size = 250
 text = "0
 "
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="PlayerScoreSeparation" type="Label" parent="."]
+z_index = -1
+offset_left = 576.0
+offset_top = 360.0
+offset_right = 712.0
+offset_bottom = 571.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.533333)
+theme_override_fonts/font = ExtResource("8_nm80v")
+theme_override_font_sizes/font_size = 100
+text = "-
+ "
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GoalSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_e7tyt")
+stream = SubResource("AudioStreamRandomizer_ch3oc")
+volume_db = 5.0
 
 [node name="MatchTimerSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_dpv3j")
+volume_db = 5.0
 
 [node name="WhistleSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_56ulb")
 
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_k6sn8")
+volume_db = -25.0
+autoplay = true
+
+[node name="EndMatchWhistleSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_sbkfl")
+volume_db = 3.0
+
+[node name="GoalLight1" type="PointLight2D" parent="."]
+position = Vector2(-208, 408)
+scale = Vector2(17.4063, 15.9063)
+color = Color(0.103963, 0.351578, 0.326025, 1)
+energy = 2.5
+texture = SubResource("GradientTexture2D_iquhk")
+metadata/_edit_lock_ = true
+
+[node name="GoalLight2" type="PointLight2D" parent="."]
+position = Vector2(1517, 352)
+rotation = -3.14159
+scale = Vector2(19.3561, 16.7801)
+color = Color(0.484377, 0.0952444, 0.256331, 1)
+energy = 2.5
+texture = SubResource("GradientTexture2D_iquhk")
+metadata/_edit_lock_ = true
+
+[node name="TimerLight" type="PointLight2D" parent="."]
+position = Vector2(616, 72)
+scale = Vector2(5.47522, 4.06894)
+color = Color(1.63645e-06, 0.808187, 1.54018e-06, 1)
+energy = 1.82
+texture = SubResource("GradientTexture2D_dup5q")
+metadata/_edit_lock_ = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(680, 496)
+scale = Vector2(22, 25)
+color = Color(0.995758, 1, 0.457031, 1)
+texture = SubResource("GradientTexture2D_7ig38")
+metadata/_edit_lock_ = true
+
+[node name="MatchOver" type="Label" parent="."]
+visible = false
+z_index = 5
+offset_right = 1280.0
+offset_bottom = 744.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 15
+theme_override_fonts/font = ExtResource("19_8tfi4")
+theme_override_font_sizes/font_size = 60
+text = "The match is over !
+
+Press \"R\" to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="timeout" from="ScoreGoalTimer" to="." method="_on_score_goal_timer_timeout"]
 [connection signal="timeout" from="MatchTimer" to="." method="_on_match_timer_timeout"]
+[connection signal="timeout" from="KickoffTimer" to="." method="_on_kickoff_timer_timeout"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

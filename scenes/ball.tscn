@@ -1,14 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfkfyl4nh088i"]
+[gd_scene load_steps=11 format=3 uid="uid://cfkfyl4nh088i"]
 
 [ext_resource type="Script" path="res://scripts/Ball.gd" id="1_lvuu3"]
-[ext_resource type="Texture2D" uid="uid://dbu1xen1fmy2o" path="res://assets/Ball sprite .png" id="2_i8n40"]
-[ext_resource type="AudioStream" uid="uid://di8rxaicavklr" path="res://assets/SuperPongLEJEU_AUDIO/SuperPongLEJEU_Audio_Rebond - Copie.wav" id="3_q31pn"]
+[ext_resource type="Texture2D" uid="uid://d1jcxqlmw0sd6" path="res://assets/ball.png" id="2_evip8"]
+[ext_resource type="Script" path="res://scripts/Camera2D.gd" id="3_j1wl4"]
+[ext_resource type="AudioStream" uid="uid://di8rxaicavklr" path="res://assets/SuperPongLEJEU_AUDIO/bounce.wav" id="4_2k8g6"]
+[ext_resource type="AudioStream" uid="uid://cgvmxfwmyo4i0" path="res://assets/SuperPongLEJEU_AUDIO/shoot.wav" id="5_l1mod"]
+[ext_resource type="Texture2D" uid="uid://dsv6d5h1bx24s" path="res://assets/ball-power.png" id="6_1c7qm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bgtgn"]
 bounce = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oxq8w"]
-radius = 13.0
+radius = 21.0
+
+[sub_resource type="Gradient" id="Gradient_8atlt"]
+offsets = PackedFloat32Array(0.0357143, 0.738095)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_htbfn"]
+gradient = SubResource("Gradient_8atlt")
+width = 12
+height = 12
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="ball" type="RigidBody2D"]
 position = Vector2(1, 0)
@@ -22,24 +36,43 @@ angular_damp = 2.0
 script = ExtResource("1_lvuu3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_i8n40")
+texture = ExtResource("2_evip8")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oxq8w")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-limit_left = -50
-limit_top = -50
-limit_right = 1330
-limit_bottom = 770
+limit_left = -25
+limit_top = 0
+limit_right = 1305
+limit_bottom = 740
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 editor_draw_limits = true
+script = ExtResource("3_j1wl4")
 
 [node name="BounceSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_q31pn")
+stream = ExtResource("4_2k8g6")
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_l1mod")
+
+[node name="BallPower" type="Sprite2D" parent="."]
+position = Vector2(789.073, 48.0748)
+scale = Vector2(0.689512, 0.689512)
+texture = ExtResource("6_1c7qm")
+hframes = 6
+
+[node name="BallLight" type="PointLight2D" parent="."]
+position = Vector2(-3.8147e-06, 1.00001)
+scale = Vector2(11.0973, 10.423)
+color = Color(0, 0.976471, 0.988235, 0.380392)
+energy = 0.5
+range_z_min = -54
+texture = SubResource("GradientTexture2D_htbfn")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

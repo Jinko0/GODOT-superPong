@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://scripts/goal.gd" id="1_pnxo4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf3jv"]
-size = Vector2(211, 623)
+size = Vector2(178, 450)
 
 [node name="Goal" type="Area2D"]
 collision_mask = 5
 script = ExtResource("1_pnxo4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(95.5, 301.5)
+position = Vector2(79, 215)
 shape = SubResource("RectangleShape2D_lf3jv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
